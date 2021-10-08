@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   get '/', to: 'home#index'
   get '/home', to: 'home#index'
   get '/message/:phone_number', to: 'message#index'
+  match '/webhook', to: 'webhook#index', via: [:get, :post]
 
 end
