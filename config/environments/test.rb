@@ -60,6 +60,7 @@ Rails.application.configure do
 
   config.twilio_account_id = ENV["TWILIO_ACCOUNT_ID"]
   config.twilio_account_token = ENV["TWILIO_ACCOUNT_TOKEN"]
+  config.twilio_account_phone_number = ENV["TWILIO_ACCOUNT_PHONE_NUMBER"]
 
 
 end

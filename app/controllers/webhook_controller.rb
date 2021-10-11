@@ -13,11 +13,12 @@ class WebhookController < ApplicationController
     message_body = message_body&.strip
 
     if ["hi", "hello", "helo", "hola"].include? message_body
-      from = params[:From]
-      to = params[:To]
+      to = params[:From]
       account_name = params[:ProfileName]
-      message = "Halo #{account_name}, apa kabar hari ini?"
-      reply(from, to, message)
+      # message = "Halo #{account_name}, apa kabar hari ini?"
+      message = "Halo #{account_name}"
+
+      reply(to, message)
     end
 
     render json: { status: true }
@@ -26,32 +27,24 @@ class WebhookController < ApplicationController
 
   private
 
-  def reply(from, to, message)
+  def reply(message_to, message_body)
 
     account_sid = Rails.application.config.twilio_account_id
     account_token = Rails.application.config.twilio_account_token
+    account_phone_number = Rails.application.config.twilio_account_phone_number
 
-    # today = DateTime.now.strftime("%Y-%m-%d")
-    #
-    # faraday = Faraday.new(
-    #   url: 'https://api.twilio.com',
-    #   headers: {'Content-Type' => 'application/json'}
-    # )
-    #
-    # response = faraday.post("/#{today}/Accounts/#{account_sid}/Messages.json") do |req|
-    #   req.params['From'] = from
-    #   req.params['To'] = to
-    #   req.params['Body'] = message
-    # end
+    message_from = "whatsapp:#{account_phone_number}"
 
-    Rails.logger.info "#{account_sid} | #{account_token} | #{from} | #{to} | #{message}"
+    Rails.logger.info "#{account_sid} | #{account_token} | #{account_phone_number} | #{message_from} | #{message_to} | #{message_body}"
 
     @client = Twilio::REST::Client.new(account_sid, account_token)
 
+
+
     response = @client.messages.create(
-      from: from,
-      to: to,
-      body: message
+      from: message_from,
+      body: message_body,
+      to: message_to
     )
 
     Rails.logger.info response
