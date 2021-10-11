@@ -10,24 +10,21 @@ class WebhookController < ApplicationController
 
     message_body = params[:Body]&.downcase
 
-    if message_body == "hi"
+    message_body = message_body&.strip
 
+    if ["hi", "hello", "helo", "hola"].include? message_body
       from = params[:From]
       to = params[:To]
       account_name = params[:ProfileName]
       message = "Halo #{account_name}, apa kabar hari ini?"
-      reply(from, to,  message)
+      reply(from, to, message)
     end
 
-
-    render json: {status: true}
+    render json: { status: true }
 
   end
 
-
   private
-
-
 
   def reply(from, to, message)
 
@@ -46,17 +43,18 @@ class WebhookController < ApplicationController
     #   req.params['To'] = to
     #   req.params['Body'] = message
     # end
-    #
+
+    Rails.logger.info "#{account_sid} | #{account_token} | #{from} | #{to} | #{message}"
 
     @client = Twilio::REST::Client.new(account_sid, account_token)
 
-    message = @client.messages.create(
+    response = @client.messages.create(
       from: from,
-      body: message,
-      to: to
+      to: to,
+      body: message
     )
 
-    Rails.logger.info message
+    Rails.logger.info response
 
   end
 

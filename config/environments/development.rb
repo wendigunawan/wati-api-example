@@ -73,7 +73,4 @@ Rails.application.configure do
   config.twilio_account_token = ENV["TWILIO_ACCOUNT_TOKEN"]
 
 
-
-
-
 end
