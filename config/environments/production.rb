@@ -110,4 +110,9 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  config.twilio_account_id = ENV["TWILIO_ACCOUNT_ID"]
+  config.twilio_account_token = ENV["TWILIO_ACCOUNT_TOKEN"]
+
+
 end
