@@ -15,9 +15,7 @@ class WebhookController < ApplicationController
     if ["hi", "hello", "helo", "hola"].include? message_body
       to = params[:From]
       account_name = params[:ProfileName]
-      # message = "Halo #{account_name}, apa kabar hari ini?"
-      message = "Halo #{account_name}"
-
+      message = "Halo *#{account_name}*, Silahkan pilih menu hari ini: \n1. Pecel Lele\n2. Soto Ayam\n3. Ikan Goreng"
       reply(to, message)
     end
 
