@@ -69,4 +69,11 @@ Rails.application.configure do
   Rails.logger.level = Logger::DEBUG
   Rails.logger.datetime_format = "%Y-%m-%d %H:%M:%S"
 
+  config.twilio_account_id = ENV["TWILIO_ACCOUNT_ID"]
+  config.twilio_account_token = ENV["TWILIO_ACCOUNT_TOKEN"]
+
+
+
+
+
 end
